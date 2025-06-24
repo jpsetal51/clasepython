@@ -1,1 +1,60 @@
 #evaluacioparcial4
+reservas = {}
+stock = 20
+
+def reservar_zapatillas():
+    global stock
+    nombre = input("Ingrese su nombre: ")
+    if nombre in reservas:
+        print("Ya existe una reserva con ese nombre.")
+        return
+    codigo = input("Ingrese el código secreto: ")
+    if codigo != "EstoyEnListaDeReservas":
+        print("Código secreto incorrecto.")
+        return
+    if stock <= 0:
+        print("No hay stock disponible.")
+        return
+    reservas[nombre] = False  # False indica que no es VIP
+    stock -= 1
+    print("Reserva exitosa.")
+
+def buscar_zapatillas_reservadas():
+    nombre = input("Ingrese el nombre del comprador: ")
+    if nombre in reservas:
+        print("Reserva encontrada.")
+        vip = input("¿Desea pagar un adicional por la reserva VIP? (s/n): ")
+        if vip.lower() == "s":
+            reservas[nombre] = True  # True indica que es VIP
+            print("Reserva VIP activada.")
+        else:
+            print("Reserva no VIP.")
+    else:
+        print("No se encontró la reserva.")
+
+def ver_stock_reservas():
+    print(f"Stock actual: {len(reservas)} reservas")
+    print(f"Stock disponible: {stock} reservas")
+
+def main():
+    while True:
+        print("TOTEM AUTOATENCIÓN RESERVA STRIKE")
+        print("1.- Reservar zapatillas")
+        print("2.- Buscar zapatillas reservadas")
+        print("3.- Ver stock de reservas")
+        print("4.- Salir")
+        opcion = input("Ingrese una opción: ")
+        if opcion == "1":
+            reservar_zapatillas()
+        elif opcion == "2":
+            buscar_zapatillas_reservadas()
+        elif opcion == "3":
+            ver_stock_reservas()
+        elif opcion == "4":
+            print("Programa terminado...")
+            break
+        else:
+            print("Debe ingresar una opción válida!!")
+
+if __name__ == "__main__":
+    main()
